@@ -1,0 +1,53 @@
+.header {
+  height: 72px;
+}
+
+.header-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-nav {
+}
+
+.main-nav__list {
+}
+
+.main-nav__item {
+}
+
+.main-nav__link {
+  font-weight: 500;
+  line-height: 24px;
+  opacity: 55%;
+
+  transition: color 0.2s ease-in-out;
+}
+
+.main-nav__link:hover {
+  color: #ff6e30;
+}
+.auth-nav {
+}
+
+.btn_login {
+  margin-right: 39px;
+
+  height: 48px;
+  border-radius: 8px;
+  
+  font-weight: 600;
+  line-height: 24px;
+  opacity: 78%;
+
+  transition: color 0.2s ease-in-out;
+}
+
+.btn_login:hover {
+  color: #ff6e30;
+}
+
+.btn_sign-up {
+  padding: 0 28px;
+}
