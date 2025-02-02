@@ -5,22 +5,46 @@
 
 /*--------------------------- Global ------------------------*/
 
+:root {
+  --white: #fff;
+}
+
 body {
+  padding: 10px 0;
   font-family: "Poppins", serif;
   font-size: 16px;
-  color: #ffffff;
+  color: var(--white);
 
   background-color: #1e252b;
 }
 
 a {
-  color: #ffffff;
+  color: var(--white);
 }
 
 .container {
   max-width: 1255px;
-  margin: auto;
-  padding: 10px 15px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Input */
+
+input[type="text"]::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+input[type="text"]::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
 }
 
 /* Logo and text */

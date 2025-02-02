@@ -1,0 +1,21 @@
+<svg width="27.000000" height="27.000000" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip5_41">
+			<rect id="telegram" width="27.000000" height="27.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+		<linearGradient x1="13.500000" y1="0.000000" x2="13.500000" y2="27.000000" id="paint_linear_5_42_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFFFFF"/>
+			<stop stop-color="#229ED9"/>
+			<stop stop-color="#FFFFFF"/>
+			<stop stop-color="#FFFFFF" stop-opacity="0.780392"/>
+			<stop offset="0.926208" stop-color="#FFFFFF"/>
+		</linearGradient>
+	</defs>
+	<g clip-path="url(#clip5_41)">
+		<path id="path" d="M13.5 0C9.92 0 6.48 1.42 3.95 3.95C3.32 4.58 2.76 5.26 2.27 6C1.78 6.73 1.36 7.51 1.02 8.33C0.68 9.15 0.43 9.99 0.25 10.86C0.08 11.73 0 12.61 0 13.5C0 17.07 1.42 20.51 3.95 23.04C6.48 25.57 9.92 27 13.5 27C17.07 27 20.51 25.57 23.04 23.04C25.57 20.51 27 17.07 27 13.5C27 9.92 25.57 6.48 23.04 3.95C20.51 1.42 17.07 0 13.5 0Z" fill="url(#paint_linear_5_42_0)" fill-opacity="0.780000" fill-rule="nonzero"/>
+		<path id="path" d="M6.11 13.35C10.04 11.64 12.67 10.51 13.98 9.96C17.73 8.4 18.51 8.13 19.02 8.12C19.13 8.12 19.38 8.15 19.54 8.28C19.67 8.39 19.71 8.54 19.73 8.64C19.75 8.75 19.77 8.99 19.75 9.18C19.55 11.31 18.67 16.49 18.22 18.88C18.03 19.89 17.66 20.23 17.3 20.27C16.52 20.34 15.92 19.75 15.16 19.25C13.97 18.47 13.3 17.99 12.15 17.23C10.82 16.35 11.68 15.87 12.44 15.08C12.64 14.87 16.09 11.73 16.16 11.44C16.17 11.41 16.18 11.27 16.1 11.2C16.02 11.13 15.9 11.16 15.82 11.18C15.7 11.2 13.8 12.46 10.12 14.94C9.58 15.31 9.1 15.49 8.66 15.48C8.18 15.47 7.25 15.21 6.56 14.99C5.72 14.71 5.04 14.57 5.1 14.1C5.13 13.86 5.47 13.61 6.11 13.35Z" fill="#1E252B" fill-opacity="1.000000" fill-rule="nonzero"/>
+	</g>
+</svg>

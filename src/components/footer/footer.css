@@ -1,0 +1,83 @@
+.footer {
+  margin-top: 205px;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.15);
+}
+
+.container {
+}
+
+.content-block {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 44px;
+}
+
+.block-description {
+  display: flex;
+  flex-direction: column;
+
+  width: 260px;
+}
+
+.block-description p:nth-child(2) {
+  margin-top: 25px;
+
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.block-description p:nth-child(3) {
+  margin-top: 21px;
+
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+.block-contact {
+  width: 185px;
+}
+
+.block-contact__title {
+  padding-bottom: 25px;
+
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+}
+
+.block-contact a:nth-child(2) {
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+  line-height: 24px;
+  transition: all 0.3s ease;
+}
+
+.block-contact a:nth-child(2):hover {
+  color: #ff6e30;
+  opacity: 0.6; 
+}
+
+.block-contact__city {
+  margin: 10px 0;
+
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.block-contact__email {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+
+  transition: all 0.3s ease;
+}
+
+.block-contact__email:hover {
+  color: #ff6e30;
+  opacity: 0.6;
+}

@@ -1,0 +1,175 @@
+/* ------------------------   Welcome block   --------------------------- */
+
+.welcome .container {
+  display: flex;
+  justify-content: space-between;
+  overflow: visible;
+}
+
+.title-block {
+  width: 600px;
+}
+
+.title-block__text h1 {
+  margin-top: 95px;
+
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 140%;
+}
+
+.title-block__text p {
+  margin-top: 29px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+.title-block__search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 60px;
+
+  padding: 0 20px;
+
+  width: 500px;
+  height: 64px;
+  border-radius: 15px;
+  background-color: #283036;
+}
+
+.title-block__search input {
+  width: 300px;
+
+  padding-left: 30px;
+  background: url(../../../public/svg/search.svg) no-repeat left center;
+  background-size: 24px;
+}
+
+.btn_search {
+  padding: 0 36px;
+}
+
+.title-block__social {
+  display: flex;
+  margin-top: 125px;
+}
+
+.title-block__social li:nth-child(1) {
+  margin-left: 22px;
+}
+
+.title-block__social li:nth-child(2) {
+  margin: 0 38px;
+}
+
+.title-block__social li {
+  width: 27px;
+}
+
+.welcome__img {
+  position: absolute;
+  right: 0;
+
+  margin-top: 60px;
+  max-width: 589px;
+}
+
+/* ------------------------   Tools block   --------------------------- */
+
+.tools .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tools__title {
+  margin-top: 227px;
+
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 130%;
+  color: #ffffffe6;
+}
+
+.tools__cards {
+  display: flex;
+  column-gap: 25px;
+}
+
+.tools__cards__item {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 72px;
+
+  width: 392px;
+  height: 294px;
+  padding: 33px;
+
+  border-radius: 15px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.701);
+
+  transition: background 0.3s ease;
+  transition: transform 0.3s ease;  
+}
+
+.tools__cards__item:hover {
+  transform: translateY(-15px);
+  background: rgba(40, 48, 54, 0.6);
+}
+
+.tools__cards__item:hover .btn_card {
+  background-color: #ff6e30;
+}
+
+.tools__cards__content {
+  display: flex;
+}
+
+.tools__cards__img {
+  width: 72px;
+}
+
+.tools__cards__text-block {
+  margin-left: 28px;
+}
+
+.tools__cards__text-block__title {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  opacity: 0.8;
+}
+
+.tools__cards__text-block span {
+  font-size: 18px;
+  font-weight: 400;
+  color: #ffa5378c;
+}
+
+.tools__cards__description {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 30px;
+  color: #ffffff8c;
+}
+
+.btn_card {
+  height: 48px;
+
+  border-radius: 8px;
+  font-weight: 600;
+  line-height: 24px;
+
+  
+  margin-left: auto;
+  margin-top: auto;
+  padding: 0 31px;
+  
+  transition: opacity 0.2s ease-in-out;
+  transition: background 0.2s ease;  
+}
+

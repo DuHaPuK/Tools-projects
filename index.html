@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="src/styles/reset.css" />
-    <link rel="stylesheet" href="src/styles/main.css" />
+    <link rel="stylesheet" href="src/styles/style.css" />
     <title>Own Tools</title>
   </head>
   <body>
@@ -35,7 +35,135 @@
         </div>
       </div>
     </header>
-    <main class="main"></main>
-    <footer class="footer"></footer>
+    <main class="main">
+      <section class="welcome">
+        <div class="container">
+          <div class="title-block">
+            <div class="title-block__text">
+              <h1>Useful tools for every day.</h1>
+              <p>
+                Tool is a web collection of information about tools that make
+                life easier.
+              </p>
+            </div>
+            <form class="title-block__search">
+              <input placeholder="Search..." type="search" />
+              <button class="btn btn_search" type="submit">Search</button>
+            </form>
+            <ul class="title-block__social">
+              <li>
+                <img src="./public/svg/Social/github-dark.svg" alt="github" />
+              </li>
+              <li>
+                <img src="./public/svg/Social/telegram.svg" alt="telegram" />
+              </li>
+              <li>
+                <img src="./public/svg/Social/linkedin.svg" alt="linkedin" />
+              </li>
+            </ul>
+          </div>
+          <img
+            src="./public/svg/Illustration-title.svg"
+            alt="title-image"
+            class="welcome__img"
+          />
+        </div>
+      </section>
+      <section class="tools">
+        <div class="container">
+          <h2 class="tools__title">Popular Tools</h2>
+          <ul class="tools__cards">
+            <li class="tools__cards__item">
+              <div class="tools__cards__content">
+                <img
+                  src="./public/svg/Tools/calculator.svg"
+                  alt="Calculator"
+                  class="tools__cards__img"
+                />
+                <div class="tools__cards__text-block">
+                  <h3 class="tools__cards__text-block__title">Calculator</h3>
+                  <span>Free</span>
+                </div>
+              </div>
+              <p class="tools__cards__description">
+                A calculator that calculates numbers
+              </p>
+              <button class="btn_card">Open</button>
+            </li>
+
+            <li class="tools__cards__item">
+              <div class="tools__cards__content">
+                <img
+                  src="./public/svg/Tools/todoist.svg"
+                  alt="Todo-list"
+                  class="tools__cards__img"
+                />
+                <div class="tools__cards__text-block">
+                  <h3 class="tools__cards__text-block__title">Todo - list</h3>
+                  <span>Free</span>
+                </div>
+              </div>
+              <p class="tools__cards__description">
+                A to-do list management app that helps you manage your tasks
+                easily.
+              </p>
+              <button class="btn_card">Open</button>
+            </li>
+
+            <li class="tools__cards__item">
+              <div class="tools__cards__content">
+                <img
+                  src="./public/svg/Tools/notes.svg"
+                  alt="Notes"
+                  class="tools__cards__img"
+                />
+                <div class="tools__cards__text-block">
+                  <h3 class="tools__cards__text-block__title">Notes</h3>
+                  <span>Free</span>
+                </div>
+              </div>
+              <p class="tools__cards__description">
+                A digital tool that allows you to create, organize, and manage
+                notes.
+              </p>
+              <button class="btn_card">Open</button>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <div class="content-block">
+          <div class="block-description">
+            <div class="logo-block">
+              <a href="index.html" class="logo-block__link">
+                <img
+                  src="public/svg/logo.svg"
+                  alt="logo"
+                  class="logo-block__img"
+                />
+                <span class="logo-block__text">Tools.</span>
+              </a>
+            </div>
+            <p>Copyright 2025. Tools</p>
+            <p>
+              Tool is a web collection of information about tools that make life
+              easier.
+            </p>
+          </div>
+          <div class="block-contact">
+            <h4 class="block-contact__title">Contact Us</h4>
+            <a class="block-contack__number" href="tel:+79501845668"
+              >+7(950)-184-56-68</a
+            >
+            <p class="block-contact__city">Kazan, Tatarstan</p>
+            <a class="block-contact__email" href="mailto:Dinar2202@gmail.com"
+              >Dinar2202@gmail.com</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
