@@ -18,10 +18,10 @@
   flex-direction: column;
 
   border-radius: 25px;
-  background-color: #122435;
+  background-color: #1e252b;
   width: 30vw;
   min-width: 550px;
-  box-shadow: 2px 0px 15px rgba(0, 0, 0, 0.701);
+  box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.701);
 
   font-size: 32px;
 }
