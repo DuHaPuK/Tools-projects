@@ -25,7 +25,7 @@
   Когда пишем число то ее закидываем во временную переменную и при нажатии знаков, то значение с переменной закидываем в массив для дальнейших вычеслении и затем после числа 
   закидываем знак который нажали , а переменную очищаем.
 
-  
+
   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   Задача, которую надо доделать: 
       5. Логика сохранение всех истории расчетов и стирание после нажатие на кнопку стереть именно в этой вкладке показа истории.
@@ -64,9 +64,6 @@ calculator.addEventListener("click", (event) => {
     let arrForCalc = updateExpression(tempHistory);
     calcAnswer = tempCalcAnswer(arrForCalc);
     renderAnswer(calcAnswer, calcAnswercopy);
-    console.log(tempHistory);
-    console.log(">copy: " + calcAnswercopy);
-    console.log(">>>>>>>>ANSWER: " + calcAnswer);
   }
 });
 
@@ -228,13 +225,11 @@ function renderAnswer(meaning, meaningCopy) {
 function tempCalcAnswer(arr) {
   let total = 0;
   arr.forEach((item, index) => {
-    console.log("item:" + item + " index:" + index);
     item = parseFloat(item);
     if (index === 0) {
       total = item;
     } else if (index - 2 >= 0) {
       let prevItem = arr[index - 1];
-      console.log("prevItem:" + prevItem);
       if (prevItem === "+") {
         total = total + item;
       } else if (prevItem === "-") {
