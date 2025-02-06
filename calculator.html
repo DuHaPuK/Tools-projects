@@ -35,7 +35,80 @@
         </div>
       </div>
     </header>
-    <main class="main"> </main>
+    <main class="main">
+      <div class="container">
+        <div class="calculator">
+          <div class="calculator__display">
+            <div class="error-msg">Error, sign not placed!</div> 
+            <div class="calculator__display__history"></div>
+            <div class="calculator__display__answer">0</div>
+          </div>
+          <div class="line"></div>
+          <div class="calculator__actions">
+            <div class="calculator__actions__row">
+              <div class="calculator__actions__col" data-type="clear">C</div>
+              <div class="calculator__actions__col" data-type="bracket">
+                ( )
+              </div>
+              <div class="calculator__actions__col" data-type="%">%</div>
+              <div
+                class="calculator__actions__col calculator__actions__col_accent"
+                data-type="/"
+              >
+                ÷
+              </div>
+            </div>
+            <div class="calculator__actions__row">
+              <div class="calculator__actions__col" data-type="7">7</div>
+              <div class="calculator__actions__col" data-type="8">8</div>
+              <div class="calculator__actions__col" data-type="9">9</div>
+              <div
+                class="calculator__actions__col calculator__actions__col_accent"
+                data-type="*"
+              >
+                ×
+              </div>
+            </div>
+            <div class="calculator__actions__row">
+              <div class="calculator__actions__col" data-type="4">4</div>
+              <div class="calculator__actions__col" data-type="5">5</div>
+              <div class="calculator__actions__col" data-type="6">6</div>
+              <div
+                class="calculator__actions__col calculator__actions__col_accent"
+                data-type="-"
+              >
+                -
+              </div>
+            </div>
+            <div class="calculator__actions__row">
+              <div class="calculator__actions__col" data-type="1">1</div>
+              <div class="calculator__actions__col" data-type="2">2</div>
+              <div class="calculator__actions__col" data-type="3">3</div>
+              <div
+                class="calculator__actions__col calculator__actions__col_accent"
+                data-type="+"
+              >
+                +
+              </div>
+            </div>
+            <div class="calculator__actions__row">
+              <div class="calculator__actions__col" data-type=".">.</div>
+              <div class="calculator__actions__col" data-type="0">0</div>
+              <div
+                class="calculator__actions__col img"
+                data-type="delete"
+              ></div>
+              <div
+                class="calculator__actions__col calculator__actions__col_accent"
+                data-type="="
+              >
+                =
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
     <footer class="footer">
       <div class="container">
         <div class="content-block">
@@ -71,5 +144,6 @@
         </div>
       </div>
     </footer>
+    <script src="src/components/main/calculator/calculator.js"></script>
   </body>
 </html>
