@@ -5,6 +5,14 @@
 .container {
 }
 
+.title {
+  margin-bottom: 60px;
+
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 130%;
+}
+
 .calculator {
   display: flex;
   flex-direction: column;
@@ -13,6 +21,8 @@
   background-color: #122435;
   width: 30vw;
   min-width: 550px;
+  box-shadow: 2px 0px 15px rgba(0, 0, 0, 0.701);
+
   font-size: 32px;
 }
 
