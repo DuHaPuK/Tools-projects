@@ -1,0 +1,31 @@
+<svg width="17.583374" height="17.583252" viewBox="0 0 17.5834 17.5833" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<linearGradient x1="4.541626" y1="9.500244" x2="2.541626" y2="9.500244" id="paint_linear_30_1257_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFA571"/>
+			<stop offset="0.748092" stop-color="#FF53A0"/>
+			<stop offset="1.000000" stop-color="#FF00CF" stop-opacity="0.529412"/>
+		</linearGradient>
+		<linearGradient x1="8.791626" y1="10.208740" x2="6.791626" y2="10.208740" id="paint_linear_30_1258_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFA571"/>
+			<stop offset="0.748092" stop-color="#FF53A0"/>
+			<stop offset="1.000000" stop-color="#FF00CF" stop-opacity="0.529412"/>
+		</linearGradient>
+		<linearGradient x1="13.041626" y1="8.437744" x2="11.041626" y2="8.437744" id="paint_linear_30_1259_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFA571"/>
+			<stop offset="0.748092" stop-color="#FF53A0"/>
+			<stop offset="1.000000" stop-color="#FF00CF" stop-opacity="0.529412"/>
+		</linearGradient>
+		<linearGradient x1="8.791666" y1="1.000000" x2="8.791666" y2="16.583332" id="paint_linear_30_1260_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFA571"/>
+			<stop offset="0.748092" stop-color="#FF53A0"/>
+			<stop offset="1.000000" stop-color="#FF00CF" stop-opacity="0.529412"/>
+		</linearGradient>
+	</defs>
+	<path id="Vector 8" d="M5.54 6.66L5.54 12.33L3.54 12.33L3.54 6.66L5.54 6.66ZM3.56 6.68L3.54 6.66C3.54 6.1 3.98 5.66 4.54 5.66C5.1 5.66 5.54 6.1 5.54 6.66L5.52 6.68L3.56 6.68ZM5.52 12.31L5.54 12.33C5.54 12.89 5.1 13.33 4.54 13.33C3.98 13.33 3.54 12.89 3.54 12.33L3.56 12.31L5.52 12.31Z" fill="url(#paint_linear_30_1257_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+	<path id="Vector 9" d="M9.79 8.08L9.79 12.33L7.79 12.33L7.79 8.08L9.79 8.08ZM7.81 8.1L7.79 8.08C7.79 7.52 8.23 7.08 8.79 7.08C9.35 7.08 9.79 7.52 9.79 8.08L9.77 8.1L7.81 8.1ZM9.77 12.31L9.79 12.33C9.79 12.89 9.35 13.33 8.79 13.33C8.23 13.33 7.79 12.89 7.79 12.33L7.81 12.31L9.77 12.31Z" fill="url(#paint_linear_30_1258_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+	<path id="Vector 10" d="M14.04 4.54L14.04 12.33L12.04 12.33L12.04 4.54L14.04 4.54ZM12.06 4.56L12.04 4.54C12.04 3.98 12.48 3.54 13.04 3.54C13.6 3.54 14.04 3.98 14.04 4.54L14.02 4.56L12.06 4.56ZM14.02 12.31L14.04 12.33C14.04 12.89 13.6 13.33 13.04 13.33C12.48 13.33 12.04 12.89 12.04 12.33L12.06 12.31L14.02 12.31Z" fill="url(#paint_linear_30_1259_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+	<rect id="Rectangle 25" x="1.000000" y="1.000000" rx="2.000000" width="15.583333" height="15.583333" stroke="url(#paint_linear_30_1260_0)" stroke-opacity="1.000000" stroke-width="2.000000"/>
+</svg>
