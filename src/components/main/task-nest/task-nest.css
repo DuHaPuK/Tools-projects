@@ -120,6 +120,11 @@
   padding: 5px 5px 5px 12px;
 }
 
+.btn-aside_active {
+  text-decoration: underline;
+  color: #ff8000;
+}
+
 .btn-aside__img {
   margin-right: 8px;
 }
@@ -234,6 +239,10 @@ input:focus::-webkit-input-placeholder {
   position: relative;
 
   color: white;
+}
+
+.task-item-block__checkbox div:hover {
+  border: 2px solid #ff8000;
 }
 
 .task-item-block__checkbox div::after {
