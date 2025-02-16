@@ -51,7 +51,7 @@
 -------------------------------------------------------------------
 */
 
-"use strict" ;
+// "use strict";
 
 document.cookie = "user = this.user; secure";
 
@@ -61,7 +61,7 @@ const dom = {
   inputAdd: document.querySelector(".input-add-task"),
 };
 
-let tasks = [];
+const tasks = [];
 
 /* Обработчик при клике на кнопки*/
 
@@ -76,6 +76,7 @@ document.body.addEventListener("click", (e) => {
     let text = dom.inputAdd.value;
     if (text.length > 0) {
       addTask(text);
+      addTaskLocalStorage(tasks);
       dom.inputAdd.value = "";
       renderTask(tasks);
     }
@@ -84,6 +85,7 @@ document.body.addEventListener("click", (e) => {
     const taskBlock = target.parentElement.parentElement.parentElement;
     const taskId = taskBlock.getAttribute("id");
     deleteTask(taskId, tasks);
+    deleteTaskStorage(taskId);
     renderTask(tasks);
   }
 
@@ -103,6 +105,7 @@ document.addEventListener("keydown", (e) => {
     let text = dom.inputAdd.value;
     if (text.length > 0) {
       addTask(text);
+      addTaskLocalStorage(tasks);
       dom.inputAdd.value = "";
       renderTask(tasks);
     }
@@ -154,6 +157,7 @@ function renderTask(arr) {
 }
 
 /* Отлеживает нажат или нет checkbox */
+
 function checkedTask(taskId, tasks) {
   tasks.forEach((task) => {
     if (taskId == task.id) {
@@ -166,6 +170,7 @@ function checkedTask(taskId, tasks) {
   });
 }
 
+/* Удаление задачи  */
 function deleteTask(taskId, tasks) {
   tasks.forEach((task, index) => {
     if (taskId == task.id) {
@@ -185,3 +190,55 @@ document.body.addEventListener("dblclick", (e) => {
 });
 
 /* ------- Работа с localStorage */
+
+/* Так, что там нужно для того чтобы реализовать сохранение задач в  localStorage? 
+есть команды такие: 
+setItem(key, value) – сохранить пару ключ/значение.
+getItem(key) – получить данные по ключу key.
+removeItem(key) – удалить данные с ключом key.
+clear() – удалить всё.
+key(index) – получить ключ на заданной позиции.
+length – количество элементов в хранилище.
+
+И еще оказывается когда сохраняем туда, то сразу переводится в строку, поэтому нам надо преобразовать 
+*/
+
+
+
+/* Загрузка задач с localStorage */
+
+function loadTask(tasks) {
+  const boxtasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  boxtasks.forEach((task) => {
+    tasks.push(task);
+  });
+}
+
+/* Загрузка задач при загрузке страницы */
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadTask(tasks);
+  renderTask(tasks);
+});
+
+/* Добавление задач в localStorage */
+
+function addTaskLocalStorage(tasks) {
+  localStorage.getItem("tasks");
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+/* Удаленеие задач с localStorage */
+
+function deleteTaskStorage(taskId) {
+  const boxtasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  boxtasks.forEach((task, index) => {
+    if (taskId == task.id) {
+      boxtasks.splice(index, 1);
+    }
+  });
+  localStorage.setItem("tasks", JSON.stringify(boxtasks));
+  if (localStorage.getItem("tasks").length === 2) {
+    localStorage.removeItem("tasks");
+  }
+}
