@@ -28,7 +28,7 @@
 2.Изменение существующей задачи. 
 3.Удаление задачи. ++
 4.Отмечание задачи как выполненной. ++
-5.Сохранение данных между сеансами (локальное хранилище, база данных). ??
+ 5.Сохранение данных между сеансами (локальное хранилище, база данных). ++
 
 ------------------------------
 
@@ -93,6 +93,7 @@ document.body.addEventListener("click", (e) => {
     const taskBlock = target.parentElement.parentElement.parentElement;
     const taskId = taskBlock.getAttribute("id");
     checkedTask(taskId, tasks);
+    checkedTaskStorage(taskId);
     renderTask(tasks);
   }
 });
@@ -203,8 +204,6 @@ length – количество элементов в хранилище.
 И еще оказывается когда сохраняем туда, то сразу переводится в строку, поэтому нам надо преобразовать 
 */
 
-
-
 /* Загрузка задач с localStorage */
 
 function loadTask(tasks) {
@@ -241,4 +240,20 @@ function deleteTaskStorage(taskId) {
   if (localStorage.getItem("tasks").length === 2) {
     localStorage.removeItem("tasks");
   }
+}
+
+/* Отслеживает нажат ли checkbox и обновляет данные в localStorage */
+
+function checkedTaskStorage(taskId) {
+  const boxtasks = JSON.parse(localStorage.getItem("tasks"));
+  boxtasks.forEach((task) => {
+    if (taskId == task.id) {
+      if (task.state == false) {
+        task.state = true;
+      } else {
+        task.state = false;
+      }
+    }
+  });
+  localStorage.setItem("tasks", JSON.stringify(boxtasks));
 }
