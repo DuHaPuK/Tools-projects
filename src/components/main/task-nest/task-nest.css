@@ -83,6 +83,8 @@
 
 /* ------------------ Aside */
 
+/* Main nav */
+
 .nav-tool {
   border-radius: 3px;
   background-color: #222d36;
@@ -109,7 +111,7 @@
   transition: all 0.1s ease-in-out;
 }
 
-.nav-aside__item:hover {
+.btn-aside:hover {
   color: #ff6e30;
 }
 
@@ -125,16 +127,29 @@
   color: #ff8000;
 }
 
-.btn-aside__img {
+.btn-aside_active #reports,
+.btn-aside_active #tasks,
+.btn-aside_active #inbox{
+  fill: #ff6e30;
+}
+
+.btn-aside svg {
   margin-right: 8px;
 }
+
+.btn-aside:hover #reports,
+.btn-aside:hover #tasks,
+.btn-aside:hover #inbox {
+  fill: #ff6e30;
+}
+
+/* Tools */
 
 .tools {
   margin-top: 30px;
 }
 
 .tools__link {
-  display: block;
   margin-top: 7px;
   background-color: #1e252b;
   border-radius: 6px;
@@ -146,6 +161,15 @@
   opacity: 0.9;
 }
 
+.tools__link:hover svg {
+  fill: #ff6e30;
+}
+
+.tools__link svg {
+  width: 15px;
+  margin-right: 8px;
+  transition: all 0.2s ease-in-out;
+}
 /* --------------------------------- Main */
 
 .tasks {
