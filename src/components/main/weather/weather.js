@@ -24,7 +24,6 @@ const API_KEY = "a53c098ae82543b4a48124519252402";
 
 let cityWeather = '';
 let temp_cCity = '';
-console.log(cityWeather);
 
 let nowDate = new Date();
 
@@ -193,10 +192,9 @@ document.addEventListener("keydown", (e) => {
 async function getWeatherCity(city, apiKey) {
   try {
     let response = await fetch(
-      `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
+      `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
     );
     let weatherInfo = await response.json();
-    console.log(weatherInfo);
     cityWeather = weatherInfo.location.name;
     temp_cCity = weatherInfo.current.temp_c;
   } catch (err) {
