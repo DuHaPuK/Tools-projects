@@ -42,6 +42,7 @@ function renderTime() {
 }
 
 renderTime();
+renderCardWeather("", "<Enter city name>");
 
 /* Отрисовка карточки с погодой на странице */
 
@@ -113,6 +114,14 @@ function renderCardWeather(city, temp_c) {
   // sliderAdditionalItem.appendChild(sliderAdditionalItemSpan);
 }
 
+function renderInfoWeather(city, temp_c) {
+  const c = document.querySelector(".slider-card__location-text");
+  const t = document.querySelector(".slider-card__temp-meaning")
+  c.textContent = `${city}`;
+  t.textContent = `${temp_c}°C`;
+
+} 
+
 
 function getMonth(nowDate) {
   let month = nowDate.getMonth();
@@ -178,11 +187,11 @@ document.addEventListener("keydown", (e) => {
     cityWeather = '';
     temp_cCity = '';
   } else {
-    renderCardWeather(cityWeather, temp_cCity);
+    renderInfoWeather(cityWeather, temp_cCity);
     cityWeather = '';
     temp_cCity = '';
   }
-    }, 200);
+    }, 500);
     INPUT_SEARCH.value = "";
   }
 });
@@ -196,8 +205,14 @@ async function getWeatherCity(city, apiKey) {
     );
     let weatherInfo = await response.json();
     cityWeather = weatherInfo.location.name;
-    temp_cCity = weatherInfo.current.temp_c;
+    temp_cCity = parseInt(weatherInfo.current.temp_c);
   } catch (err) {
     alert(err + "Такого города нет похоже!");
   }
 }
+
+
+/* 
+Нужно написать логику, которая при изначальной загрузке, показывалась карточка пустая с надписью,  и далее при запросе города, заменялась
+на карточку с городом.
+*/
