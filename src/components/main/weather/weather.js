@@ -22,8 +22,8 @@ const DATE_BLOCK = document.querySelector(".slider-card__data-text");
 const INPUT_SEARCH = document.querySelector(".input-search");
 const API_KEY = "a53c098ae82543b4a48124519252402";
 
-let cityWeather = '';
-let temp_cCity = '';
+let cityWeather = "";
+let temp_cCity = "";
 
 let nowDate = new Date();
 
@@ -42,11 +42,11 @@ function renderTime() {
 }
 
 renderTime();
-renderCardWeather("", "<Enter city name>");
+renderCardWeather();
 
 /* Отрисовка карточки с погодой на странице */
 
-function renderCardWeather(city, temp_c) {
+function renderCardWeather() {
   const sliderContainer = document.querySelector(".slider-container");
 
   const sliderCard = document.createElement("div");
@@ -57,7 +57,7 @@ function renderCardWeather(city, temp_c) {
 
   const sliderLocationText = document.createElement("p");
   sliderLocationText.classList.add("slider-card__location-text");
-  sliderLocationText.textContent = `${city}`;
+  sliderLocationText.textContent = "";
 
   const sliderLocationImg = document.createElement("img");
   sliderLocationImg.classList.add("slider-card__location-img");
@@ -74,7 +74,7 @@ function renderCardWeather(city, temp_c) {
 
   const sliderTempMeaning = document.createElement("p");
   sliderTempMeaning.classList.add("slider-card__temp-meaning");
-  sliderTempMeaning.textContent = `${temp_c}°C`;
+  sliderTempMeaning.textContent = "<Enter city name>";
 
   const sliderDataBlock = document.createElement("div");
   sliderDataBlock.classList.add("slider-card__data-block");
@@ -114,14 +114,14 @@ function renderCardWeather(city, temp_c) {
   // sliderAdditionalItem.appendChild(sliderAdditionalItemSpan);
 }
 
+/* Отображение информации после ввода */
+
 function renderInfoWeather(city, temp_c) {
   const c = document.querySelector(".slider-card__location-text");
-  const t = document.querySelector(".slider-card__temp-meaning")
+  const t = document.querySelector(".slider-card__temp-meaning");
   c.textContent = `${city}`;
   t.textContent = `${temp_c}°C`;
-
-} 
-
+}
 
 function getMonth(nowDate) {
   let month = nowDate.getMonth();
@@ -183,14 +183,18 @@ document.addEventListener("keydown", (e) => {
     console.log("VALUE INPUT =>" + INPUT_SEARCH.value);
     getWeatherCity(INPUT_SEARCH.value, API_KEY);
     setTimeout(() => {
-  if(cityWeather === 'null' || cityWeather === "" || cityWeather === "undefined") {
-    cityWeather = '';
-    temp_cCity = '';
-  } else {
-    renderInfoWeather(cityWeather, temp_cCity);
-    cityWeather = '';
-    temp_cCity = '';
-  }
+      if (
+        cityWeather === "null" ||
+        cityWeather === "" ||
+        cityWeather === "undefined"
+      ) {
+        cityWeather = "";
+        temp_cCity = "";
+      } else {
+        renderInfoWeather(cityWeather, temp_cCity);
+        cityWeather = "";
+        temp_cCity = "";
+      }
     }, 500);
     INPUT_SEARCH.value = "";
   }
@@ -207,10 +211,9 @@ async function getWeatherCity(city, apiKey) {
     cityWeather = weatherInfo.location.name;
     temp_cCity = parseInt(weatherInfo.current.temp_c);
   } catch (err) {
-    alert(err + "Такого города нет похоже!");
+    alert(err + ">>>>" + "Такого города похоже нет!");
   }
 }
-
 
 /* 
 Нужно написать логику, которая при изначальной загрузке, показывалась карточка пустая с надписью,  и далее при запросе города, заменялась
