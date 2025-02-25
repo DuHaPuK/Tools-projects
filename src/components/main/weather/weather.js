@@ -19,8 +19,12 @@
 
 const TIME_BLOCK = document.querySelector(".weather-logo-block__time");
 const DATE_BLOCK = document.querySelector(".slider-card__data-text");
-
+const INPUT_SEARCH = document.querySelector(".input-search");
 const API_KEY = "a53c098ae82543b4a48124519252402";
+
+let cityWeather = '';
+let temp_cCity = '';
+console.log(cityWeather);
 
 let nowDate = new Date();
 
@@ -42,7 +46,7 @@ renderTime();
 
 /* Отрисовка карточки с погодой на странице */
 
-function renderCardWeather() {
+function renderCardWeather(city, temp_c) {
   const sliderContainer = document.querySelector(".slider-container");
 
   const sliderCard = document.createElement("div");
@@ -53,7 +57,7 @@ function renderCardWeather() {
 
   const sliderLocationText = document.createElement("p");
   sliderLocationText.classList.add("slider-card__location-text");
-  sliderLocationText.textContent = "New York";
+  sliderLocationText.textContent = `${city}`;
 
   const sliderLocationImg = document.createElement("img");
   sliderLocationImg.classList.add("slider-card__location-img");
@@ -70,7 +74,7 @@ function renderCardWeather() {
 
   const sliderTempMeaning = document.createElement("p");
   sliderTempMeaning.classList.add("slider-card__temp-meaning");
-  sliderTempMeaning.textContent = "27°C";
+  sliderTempMeaning.textContent = `${temp_c}°C`;
 
   const sliderDataBlock = document.createElement("div");
   sliderDataBlock.classList.add("slider-card__data-block");
@@ -82,17 +86,17 @@ function renderCardWeather() {
   let dayDate = nowDate.getDate();
   sliderDataText.textContent = `${month} ${dayDate}, ${weekDay}`;
 
-  const sliderAdditionalBLock = document.createElement("div");
-  sliderAdditionalBLock.classList.add("slider-card__additional-block");
+  // const sliderAdditionalBLock = document.createElement("div");
+  // sliderAdditionalBLock.classList.add("slider-card__additional-block");
 
-  const sliderAdditionalList = document.createElement("ul");
-  sliderAdditionalList.classList.add("slider-card__additional__list");
+  // const sliderAdditionalList = document.createElement("ul");
+  // sliderAdditionalList.classList.add("slider-card__additional__list");
 
-  const sliderAdditionalItem = document.createElement("li");
-  sliderAdditionalItem.classList.add("slider-card__additional__item");
-  sliderAdditionalItem.textContent = "Humidity";
-  const sliderAdditionalItemSpan = document.createElement("span");
-  sliderAdditionalItemSpan.textContent = "99%";
+  // const sliderAdditionalItem = document.createElement("li");
+  // sliderAdditionalItem.classList.add("slider-card__additional__item");
+  // sliderAdditionalItem.textContent = "Humidity";
+  // const sliderAdditionalItemSpan = document.createElement("span");
+  // sliderAdditionalItemSpan.textContent = "99%";
 
   sliderContainer.appendChild(sliderCard);
   sliderCard.appendChild(sliderLocationBLock);
@@ -103,14 +107,13 @@ function renderCardWeather() {
   sliderTempBlock.appendChild(sliderTempMeaning);
   sliderCard.appendChild(sliderDataBlock);
   sliderDataBlock.appendChild(sliderDataText);
-  sliderCard.appendChild(sliderAdditionalBLock);
-  sliderAdditionalBLock.appendChild(sliderAdditionalList);
+  // sliderCard.appendChild(sliderAdditionalBLock);
+  // sliderAdditionalBLock.appendChild(sliderAdditionalList);
 
-  sliderAdditionalList.appendChild(sliderAdditionalItem);
-  sliderAdditionalItem.appendChild(sliderAdditionalItemSpan);
+  // sliderAdditionalList.appendChild(sliderAdditionalItem);
+  // sliderAdditionalItem.appendChild(sliderAdditionalItemSpan);
 }
 
-renderCardWeather();
 
 function getMonth(nowDate) {
   let month = nowDate.getMonth();
@@ -164,11 +167,39 @@ function getWeekDay(nowDate) {
   }
 }
 
-fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Moscow`)
-  .then((response) => response.json())
-  .then((data) => console.log(data));
+/* Отработка элемента поиска при нажатии на ENTER */
 
-  /* Задача!
-    Внедрить функцию, которая будет обрабатывать запрос и рендирить карточку полностью с погодой.
-  
-  */
+document.addEventListener("keydown", (e) => {
+  if (e.code == "Enter") {
+    e.preventDefault();
+    console.log("VALUE INPUT =>" + INPUT_SEARCH.value);
+    getWeatherCity(INPUT_SEARCH.value, API_KEY);
+    setTimeout(() => {
+  if(cityWeather === 'null' || cityWeather === "" || cityWeather === "undefined") {
+    cityWeather = '';
+    temp_cCity = '';
+  } else {
+    renderCardWeather(cityWeather, temp_cCity);
+    cityWeather = '';
+    temp_cCity = '';
+  }
+    }, 200);
+    INPUT_SEARCH.value = "";
+  }
+});
+
+/* Запрос информации о погоде */
+
+async function getWeatherCity(city, apiKey) {
+  try {
+    let response = await fetch(
+      `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
+    );
+    let weatherInfo = await response.json();
+    console.log(weatherInfo);
+    cityWeather = weatherInfo.location.name;
+    temp_cCity = weatherInfo.current.temp_c;
+  } catch (err) {
+    alert(err + "Такого города нет похоже!");
+  }
+}

@@ -115,7 +115,6 @@
 .slider-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 817px;
   height: 425px;
   padding: 15px;
@@ -129,6 +128,12 @@
     rgb(173, 54, 203) 32.23%,
     rgb(51, 51, 51) 67.368%
   );
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.slider-card:hover {
+  opacity: 0.8;
 }
 
 .slider-card__location-block {
@@ -162,6 +167,7 @@
 }
 
 .slider-card__data-block {
+  margin-top: auto;
 }
 
 .slider-card__data-text {
