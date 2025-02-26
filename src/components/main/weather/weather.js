@@ -1,14 +1,14 @@
 /* 
 Задача какая, какие функции должны быть в погоде?
-1. Запрос данных с другого сервера и показ на странице по указанному городу. 
+++1. Запрос данных с другого сервера и показ на странице по указанному городу. 
   Асинхронный запрос
 
 2. Функциональный слайдер, возможнолсть переключаться между города. {
-  2.2 При нажатие на кнопку, переключать на другой слайд, то есть на другой контейнер с погодой. {
+  ++ 2.2 При нажатие на кнопку, переключать на другой слайд, то есть на другой контейнер с погодой. {
     Идея такая может быть, при переключении можно менять картинку, или же воспользоваться перемещением слайда.   
     Можно воспользоваться со смещением картинки тиоп плюс сколько то пикселей и так будет смещаться. Решим. Сегодня ДР, так что потом все ! 
   }
-  2.3 При достижение конца слайда, переходить на начало и так до бесконечности.
+  ++ 2.3 При достижение конца слайда, переходить на начало и так до бесконечности.
   2.4     
 }
 
@@ -247,9 +247,9 @@ document.addEventListener("keydown", (e) => {
 /* Отбработка кликов */
 
 document.addEventListener("click", (e) => {
-  e.preventDefault();
   let target = e.target;
   if (target.classList.contains("btn-search-weather")) {
+    e.preventDefault();
     tempButton = "addBtn";
     if (INPUT_SEARCH.value.length > 0) {
       getWeatherCity(INPUT_SEARCH.value, API_KEY);
@@ -261,9 +261,11 @@ document.addEventListener("click", (e) => {
       }, 500);
     }
   } else if (target.classList.contains("left-arrow-svg")) {
+    e.preventDefault();
     tempButton = "left-arrow";
     renderInfoWeather(cityList, tempButton);
   } else if (target.classList.contains("right-arrow-svg")) {
+    e.preventDefault();
     tempButton = "right-arrow";
     renderInfoWeather(cityList, tempButton);
   }
