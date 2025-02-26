@@ -1,20 +1,4 @@
-/* 
-Задача какая, какие функции должны быть в погоде?
-++1. Запрос данных с другого сервера и показ на странице по указанному городу. 
-  Асинхронный запрос
-
-2. Функциональный слайдер, возможнолсть переключаться между города. {
-  ++ 2.2 При нажатие на кнопку, переключать на другой слайд, то есть на другой контейнер с погодой. {
-    Идея такая может быть, при переключении можно менять картинку, или же воспользоваться перемещением слайда.   
-    Можно воспользоваться со смещением картинки тиоп плюс сколько то пикселей и так будет смещаться. Решим. Сегодня ДР, так что потом все ! 
-  }
-  ++ 2.3 При достижение конца слайда, переходить на начало и так до бесконечности.
-  2.4     
-}
-
-++ 3. Время 
-
-*/
+"use strict";
 
 const TIME_BLOCK = document.querySelector(".weather-logo-block__time");
 const DATE_BLOCK = document.querySelector(".slider-card__data-text");
@@ -236,6 +220,7 @@ document.addEventListener("keydown", (e) => {
       getWeatherCity(INPUT_SEARCH.value, API_KEY);
       setTimeout(() => {
         renderInfoWeather(cityList, tempButton);
+        addListLocalStorage(cityList, "cityWeather");
         cityWeather = "";
         temp_cCity = "";
       }, 500);
@@ -255,6 +240,7 @@ document.addEventListener("click", (e) => {
       getWeatherCity(INPUT_SEARCH.value, API_KEY);
       setTimeout(() => {
         renderInfoWeather(cityList, tempButton);
+        addListLocalStorage(cityList, "cityWeather");
         cityWeather = "";
         temp_cCity = "";
         INPUT_SEARCH.value = "";
@@ -299,3 +285,32 @@ function addCityTemp(city, temp) {
 
   cityList.push(newCity);
 }
+
+/* Загрузка массив со списком в localStorage */
+
+function addListLocalStorage(array, name) {
+  localStorage.setItem(`${name}`, JSON.stringify(array));
+}
+
+/* Загрузка  массив со списком из localStorage*/
+
+function loadArrayList(name) {
+  const boxCity = JSON.parse(localStorage.getItem(`${name}`));
+  boxCity.forEach((item) => {
+    cityList.push(item);
+  });
+}
+
+document.addEventListener("DOMContentLoaded",() => {
+  loadArrayList("cityWeather");
+  tempButton = "addBtn";
+  renderInfoWeather(cityList, tempButton);
+})
+
+
+/* 
+Задача:
+1.Удаление карточки с погодой
+2. Красивая прокрутка, переключение между карточками погоды
+3. 
+*/
