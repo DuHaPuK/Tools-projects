@@ -4,7 +4,6 @@
   Асинхронный запрос
 
 2. Функциональный слайдер, возможнолсть переключаться между города. {
-  2.1 Слайдер, основная по середине, остальные на половину скрыты и размыты. 
   2.2 При нажатие на кнопку, переключать на другой слайд, то есть на другой контейнер с погодой. {
     Идея такая может быть, при переключении можно менять картинку, или же воспользоваться перемещением слайда.   
     Можно воспользоваться со смещением картинки тиоп плюс сколько то пикселей и так будет смещаться. Решим. Сегодня ДР, так что потом все ! 
@@ -20,10 +19,16 @@
 const TIME_BLOCK = document.querySelector(".weather-logo-block__time");
 const DATE_BLOCK = document.querySelector(".slider-card__data-text");
 const INPUT_SEARCH = document.querySelector(".input-search");
+
 const API_KEY = "a53c098ae82543b4a48124519252402";
+
+let cityList = [];
+let tempIdxCityList;
 
 let cityWeather = "";
 let temp_cCity = "";
+
+let tempButton = "";
 
 let nowDate = new Date();
 
@@ -116,11 +121,57 @@ function renderCardWeather() {
 
 /* Отображение информации после ввода */
 
-function renderInfoWeather(city, temp_c) {
+function renderInfoWeather(array, tempButton) {
   const c = document.querySelector(".slider-card__location-text");
   const t = document.querySelector(".slider-card__temp-meaning");
-  c.textContent = `${city}`;
-  t.textContent = `${temp_c}°C`;
+  array.forEach((item, index) => {
+    if (tempButton == "addBtn" && array.length === 1) {
+      tempIdxCityList = index;
+      c.textContent = item.city;
+      t.textContent = item.temp + "°C";
+      tempButton = "";
+    } else if (
+      tempButton == "addBtn" &&
+      array.length >= 2 &&
+      index === array.length - 1
+    ) {
+      tempIdxCityList = index;
+      c.textContent = item.city;
+      t.textContent = item.temp + "°C";
+      tempButton = "";
+    } else if (
+      tempButton == "left-arrow" &&
+      index === tempIdxCityList - 1 &&
+      tempIdxCityList > 0
+    ) {
+      tempIdxCityList = index;
+      c.textContent = item.city;
+      t.textContent = item.temp + "°C";
+      tempButton = "";
+    } else if (
+      tempButton == "left-arrow" &&
+      tempIdxCityList === 0 &&
+      index === array.length - 1
+    ) {
+      tempIdxCityList = index;
+      c.textContent = item.city;
+      t.textContent = item.temp + "°C";
+    } else if (tempButton == "right-arrow" && index === tempIdxCityList + 1) {
+      tempIdxCityList = index;
+      c.textContent = item.city;
+      t.textContent = item.temp + "°C";
+      tempButton = "";
+    } else if (
+      tempButton == "right-arrow" &&
+      tempIdxCityList == array.length - 1 &&
+      index === 0
+    ) {
+      tempIdxCityList = index;
+      c.textContent = item.city;
+      t.textContent = item.temp + "°C";
+      tempButton = "";
+    }
+  });
 }
 
 function getMonth(nowDate) {
@@ -179,24 +230,42 @@ function getWeekDay(nowDate) {
 
 document.addEventListener("keydown", (e) => {
   if (e.code == "Enter") {
+    tempButton = "addBtn";
     e.preventDefault();
-    console.log("VALUE INPUT =>" + INPUT_SEARCH.value);
-    getWeatherCity(INPUT_SEARCH.value, API_KEY);
-    setTimeout(() => {
-      if (
-        cityWeather === "null" ||
-        cityWeather === "" ||
-        cityWeather === "undefined"
-      ) {
+    if (INPUT_SEARCH.value.length > 0) {
+      getWeatherCity(INPUT_SEARCH.value, API_KEY);
+      setTimeout(() => {
+        renderInfoWeather(cityList, tempButton);
         cityWeather = "";
         temp_cCity = "";
-      } else {
-        renderInfoWeather(cityWeather, temp_cCity);
-        cityWeather = "";
-        temp_cCity = "";
-      }
-    }, 500);
+      }, 500);
+    }
     INPUT_SEARCH.value = "";
+  }
+});
+
+/* Отбработка кликов */
+
+document.addEventListener("click", (e) => {
+  e.preventDefault();
+  let target = e.target;
+  if (target.classList.contains("btn-search-weather")) {
+    tempButton = "addBtn";
+    if (INPUT_SEARCH.value.length > 0) {
+      getWeatherCity(INPUT_SEARCH.value, API_KEY);
+      setTimeout(() => {
+        renderInfoWeather(cityList, tempButton);
+        cityWeather = "";
+        temp_cCity = "";
+        INPUT_SEARCH.value = "";
+      }, 500);
+    }
+  } else if (target.classList.contains("left-arrow-svg")) {
+    tempButton = "left-arrow";
+    renderInfoWeather(cityList, tempButton);
+  } else if (target.classList.contains("right-arrow-svg")) {
+    tempButton = "right-arrow";
+    renderInfoWeather(cityList, tempButton);
   }
 });
 
@@ -210,12 +279,21 @@ async function getWeatherCity(city, apiKey) {
     let weatherInfo = await response.json();
     cityWeather = weatherInfo.location.name;
     temp_cCity = parseInt(weatherInfo.current.temp_c);
+    addCityTemp(cityWeather, temp_cCity);
+    cityWeather = "";
+    temp_cCity = "";
   } catch (err) {
     alert(err + ">>>>" + "Такого города похоже нет!");
   }
 }
 
-/* 
-Нужно написать логику, которая при изначальной загрузке, показывалась карточка пустая с надписью,  и далее при запросе города, заменялась
-на карточку с городом.
-*/
+/* Добавление в массив */
+
+function addCityTemp(city, temp) {
+  const newCity = {
+    city,
+    temp,
+  };
+
+  cityList.push(newCity);
+}
