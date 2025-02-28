@@ -107,6 +107,17 @@ function renderInfoWeather(array, tempButton) {
   const c = document.querySelector(".slider-card__location-text");
   const t = document.querySelector(".slider-card__temp-meaning");
   const d = document.querySelector(".slider-card__delete-btn");
+  const btnLeft = document.querySelector(".left-arrow");
+  const btnRight = document.querySelector(".right-arrow");
+
+
+  if(array.length <= 1) {
+    btnLeft.classList.add("hidden");
+    btnRight.classList.add("hidden");
+  } else {
+    btnLeft.classList.remove("hidden");
+    btnRight.classList.remove("hidden");
+  }
 
   array.forEach((item, index) => {
     if (tempButton == "addBtn" && array.length === 1) {
@@ -438,11 +449,13 @@ function deleteCard(array, id) {
   });
 }
 
+/* Удаление стрелок, если нет необходимости прокрутки */
+
 /* 
 
 Задача:
 ++ 1.Удаление карточки с погодой
-2. Красивая прокрутка, переключение между карточками погоды.
+++ 2. Красивая прокрутка, переключение между карточками погоды.
 
 Далее повторение promise (все темы!) для того чтобы досконально все понять и далее применять в проектах .
 
