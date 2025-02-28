@@ -110,8 +110,7 @@ function renderInfoWeather(array, tempButton) {
   const btnLeft = document.querySelector(".left-arrow");
   const btnRight = document.querySelector(".right-arrow");
 
-
-  if(array.length <= 1) {
+  if (array.length <= 1) {
     btnLeft.classList.add("hidden");
     btnRight.classList.add("hidden");
   } else {
@@ -410,9 +409,11 @@ function addListLocalStorage(array, name) {
 
 function loadArrayList(name) {
   const boxCity = JSON.parse(localStorage.getItem(`${name}`));
-  boxCity.forEach((item) => {
-    cityList.push(item);
-  });
+  if (boxCity) {
+    boxCity.forEach((item) => {
+      cityList.push(item);
+    });
+  }
 }
 
 /* Загрузка масссив со списком из localStorage во время загрузки DOM */
