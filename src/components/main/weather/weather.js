@@ -3,6 +3,7 @@
 const TIME_BLOCK = document.querySelector(".weather-logo-block__time");
 const DATE_BLOCK = document.querySelector(".slider-card__data-text");
 const INPUT_SEARCH = document.querySelector(".input-search");
+const DELETE_BTN = document.querySelector(".slider-card__delete-btn");
 
 const API_KEY = "a53c098ae82543b4a48124519252402";
 
@@ -18,19 +19,30 @@ let nowDate = new Date();
 
 /* Вывод времени на странице*/
 
-function renderTime() {
+function renderTime(domElement) {
   let now = new Date();
   let hours = now.getHours();
   let minutes = now.getMinutes();
 
   if (minutes <= 9) {
-    TIME_BLOCK.innerHTML = `${hours}:0${minutes}`;
+    domElement.innerHTML = `${hours}:0${minutes}`;
   } else {
-    TIME_BLOCK.innerHTML = `${hours}:${minutes}`;
+    domElement.innerHTML = `${hours}:${minutes}`;
   }
 }
 
-renderTime();
+/* Вывод даты на карточку с погодой. */
+
+function renderDate(domElement) {
+  let month = getMonth(nowDate);
+  let weekDay = getWeekDay(nowDate);
+  let dayDate = nowDate.getDate();
+
+  domElement.textContent = `${month} ${dayDate}, ${weekDay}`;
+}
+
+renderTime(TIME_BLOCK);
+
 renderCardWeather();
 
 /* Отрисовка карточки с погодой на странице */
@@ -43,6 +55,11 @@ function renderCardWeather() {
 
   const sliderLocationBLock = document.createElement("div");
   sliderLocationBLock.classList.add("slider-card__location-block");
+
+  const sliderWastebasket = document.createElement("button");
+  sliderWastebasket.classList.add("slider-card__delete-btn");
+
+  // sliderWastebasket.textContent = "btn";
 
   const sliderLocationText = document.createElement("p");
   sliderLocationText.classList.add("slider-card__location-text");
@@ -70,37 +87,18 @@ function renderCardWeather() {
 
   const sliderDataText = document.createElement("p");
   sliderDataText.classList.add("slider-card__data-text");
-  let month = getMonth(nowDate);
-  let weekDay = getWeekDay(nowDate);
-  let dayDate = nowDate.getDate();
-  sliderDataText.textContent = `${month} ${dayDate}, ${weekDay}`;
-
-  // const sliderAdditionalBLock = document.createElement("div");
-  // sliderAdditionalBLock.classList.add("slider-card__additional-block");
-
-  // const sliderAdditionalList = document.createElement("ul");
-  // sliderAdditionalList.classList.add("slider-card__additional__list");
-
-  // const sliderAdditionalItem = document.createElement("li");
-  // sliderAdditionalItem.classList.add("slider-card__additional__item");
-  // sliderAdditionalItem.textContent = "Humidity";
-  // const sliderAdditionalItemSpan = document.createElement("span");
-  // sliderAdditionalItemSpan.textContent = "99%";
+  renderDate(sliderDataText);
 
   sliderContainer.appendChild(sliderCard);
   sliderCard.appendChild(sliderLocationBLock);
   sliderLocationBLock.appendChild(sliderLocationText);
   sliderLocationBLock.appendChild(sliderLocationImg);
+  sliderLocationBLock.appendChild(sliderWastebasket);
   sliderCard.appendChild(sliderTempBlock);
   sliderTempBlock.appendChild(sliderTempImg);
   sliderTempBlock.appendChild(sliderTempMeaning);
   sliderCard.appendChild(sliderDataBlock);
   sliderDataBlock.appendChild(sliderDataText);
-  // sliderCard.appendChild(sliderAdditionalBLock);
-  // sliderAdditionalBLock.appendChild(sliderAdditionalList);
-
-  // sliderAdditionalList.appendChild(sliderAdditionalItem);
-  // sliderAdditionalItem.appendChild(sliderAdditionalItemSpan);
 }
 
 /* Отображение информации после ввода */
@@ -108,11 +106,14 @@ function renderCardWeather() {
 function renderInfoWeather(array, tempButton) {
   const c = document.querySelector(".slider-card__location-text");
   const t = document.querySelector(".slider-card__temp-meaning");
+  const d = document.querySelector(".slider-card__delete-btn");
+
   array.forEach((item, index) => {
     if (tempButton == "addBtn" && array.length === 1) {
       tempIdxCityList = index;
       c.textContent = item.city;
       t.textContent = item.temp + "°C";
+      d.setAttribute("id", `${item.id}`);
       tempButton = "";
     } else if (
       tempButton == "addBtn" &&
@@ -122,6 +123,7 @@ function renderInfoWeather(array, tempButton) {
       tempIdxCityList = index;
       c.textContent = item.city;
       t.textContent = item.temp + "°C";
+      d.setAttribute("id", `${item.id}`);
       tempButton = "";
     } else if (
       tempButton == "left-arrow" &&
@@ -129,8 +131,29 @@ function renderInfoWeather(array, tempButton) {
       tempIdxCityList > 0
     ) {
       tempIdxCityList = index;
-      c.textContent = item.city;
-      t.textContent = item.temp + "°C";
+      const SLIDER_CARD = document.querySelector(".slider-card");
+      SLIDER_CARD.classList.add("slide-out");
+      setTimeout(() => {
+        SLIDER_CARD.classList.add("hidden");
+      }, 300);
+      setTimeout(() => {
+        c.textContent = item.city;
+        t.textContent = item.temp + "°C";
+        d.setAttribute("id", `${item.id}`);
+
+        SLIDER_CARD.classList.remove("slide-out");
+        SLIDER_CARD.classList.add("slide-in");
+      }, 300);
+
+      setTimeout(() => {
+        SLIDER_CARD.classList.remove("slide-in");
+        SLIDER_CARD.classList.remove("hidden");
+        SLIDER_CARD.classList.add("slide-back");
+      }, 500);
+
+      setTimeout(() => {
+        SLIDER_CARD.classList.remove("slide-back");
+      }, 501);
       tempButton = "";
     } else if (
       tempButton == "left-arrow" &&
@@ -138,12 +161,55 @@ function renderInfoWeather(array, tempButton) {
       index === array.length - 1
     ) {
       tempIdxCityList = index;
-      c.textContent = item.city;
-      t.textContent = item.temp + "°C";
+      const SLIDER_CARD = document.querySelector(".slider-card");
+      SLIDER_CARD.classList.add("slide-out");
+      setTimeout(() => {
+        SLIDER_CARD.classList.add("hidden");
+      }, 300);
+      setTimeout(() => {
+        c.textContent = item.city;
+        t.textContent = item.temp + "°C";
+        d.setAttribute("id", `${item.id}`);
+
+        SLIDER_CARD.classList.remove("slide-out");
+        SLIDER_CARD.classList.add("slide-in");
+      }, 300);
+
+      setTimeout(() => {
+        SLIDER_CARD.classList.remove("slide-in");
+        SLIDER_CARD.classList.add("slide-back");
+        SLIDER_CARD.classList.remove("hidden");
+      }, 500);
+
+      setTimeout(() => {
+        SLIDER_CARD.classList.remove("slide-back");
+      }, 501);
+      tempButton = "";
     } else if (tempButton == "right-arrow" && index === tempIdxCityList + 1) {
       tempIdxCityList = index;
-      c.textContent = item.city;
-      t.textContent = item.temp + "°C";
+      const SLIDER_CARD = document.querySelector(".slider-card");
+      SLIDER_CARD.classList.add("slide-in");
+      setTimeout(() => {
+        SLIDER_CARD.classList.add("hidden");
+      }, 300);
+      setTimeout(() => {
+        c.textContent = item.city;
+        t.textContent = item.temp + "°C";
+        d.setAttribute("id", `${item.id}`);
+
+        SLIDER_CARD.classList.remove("slide-in");
+        SLIDER_CARD.classList.add("slide-out");
+      }, 300);
+
+      setTimeout(() => {
+        SLIDER_CARD.classList.remove("slide-out");
+        SLIDER_CARD.classList.add("slide-back");
+        SLIDER_CARD.classList.remove("hidden");
+      }, 500);
+
+      setTimeout(() => {
+        SLIDER_CARD.classList.remove("slide-back");
+      }, 501);
       tempButton = "";
     } else if (
       tempButton == "right-arrow" &&
@@ -151,12 +217,35 @@ function renderInfoWeather(array, tempButton) {
       index === 0
     ) {
       tempIdxCityList = index;
-      c.textContent = item.city;
-      t.textContent = item.temp + "°C";
+      const SLIDER_CARD = document.querySelector(".slider-card");
+      SLIDER_CARD.classList.add("slide-in");
+      setTimeout(() => {
+        SLIDER_CARD.classList.add("hidden");
+      }, 300);
+      setTimeout(() => {
+        c.textContent = item.city;
+        t.textContent = item.temp + "°C";
+        d.setAttribute("id", `${item.id}`);
+
+        SLIDER_CARD.classList.remove("slide-in");
+        SLIDER_CARD.classList.add("slide-out");
+      }, 300);
+
+      setTimeout(() => {
+        SLIDER_CARD.classList.remove("slide-out");
+        SLIDER_CARD.classList.add("slide-back");
+        SLIDER_CARD.classList.remove("hidden");
+      }, 500);
+
+      setTimeout(() => {
+        SLIDER_CARD.classList.remove("slide-back");
+      }, 501);
       tempButton = "";
     }
   });
 }
+
+/* Вовзращает название месяца место числа */
 
 function getMonth(nowDate) {
   let month = nowDate.getMonth();
@@ -188,6 +277,8 @@ function getMonth(nowDate) {
       return "Dec";
   }
 }
+
+/* Возвращает назание дня недели место числа */
 
 function getWeekDay(nowDate) {
   let weekDay = nowDate.getDay();
@@ -233,6 +324,7 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener("click", (e) => {
   let target = e.target;
+  console.log(cityList);
   if (target.classList.contains("btn-search-weather")) {
     e.preventDefault();
     tempButton = "addBtn";
@@ -254,6 +346,16 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
     tempButton = "right-arrow";
     renderInfoWeather(cityList, tempButton);
+  } else if (target.classList.contains("slider-card__delete-btn")) {
+    const idCard = target.getAttribute("id");
+    deleteCard(cityList, idCard);
+    deleteCardStorage(idCard, "cityWeather");
+    renderInfoWeather(cityList, tempButton);
+    if (cityList.length === 0) {
+      const sliderContainer = document.querySelector(".slider-container");
+      sliderContainer.innerHTML = "";
+      renderCardWeather();
+    }
   }
 });
 
@@ -267,7 +369,7 @@ async function getWeatherCity(city, apiKey) {
     let weatherInfo = await response.json();
     cityWeather = weatherInfo.location.name;
     temp_cCity = parseInt(weatherInfo.current.temp_c);
-    addCityTemp(cityWeather, temp_cCity);
+    addCityTemp(cityWeather, temp_cCity, cityList);
     cityWeather = "";
     temp_cCity = "";
   } catch (err) {
@@ -277,13 +379,14 @@ async function getWeatherCity(city, apiKey) {
 
 /* Добавление в массив */
 
-function addCityTemp(city, temp) {
+function addCityTemp(city, temp, array) {
   const newCity = {
+    id: Date.now(),
     city,
     temp,
   };
 
-  cityList.push(newCity);
+  array.push(newCity);
 }
 
 /* Загрузка массив со списком в localStorage */
@@ -301,16 +404,49 @@ function loadArrayList(name) {
   });
 }
 
-document.addEventListener("DOMContentLoaded",() => {
+/* Загрузка масссив со списком из localStorage во время загрузки DOM */
+
+document.addEventListener("DOMContentLoaded", () => {
   loadArrayList("cityWeather");
   tempButton = "addBtn";
   renderInfoWeather(cityList, tempButton);
-})
+});
 
+/* Удаление карточки из localStorage */
+
+function deleteCardStorage(id, name) {
+  const box = JSON.parse(localStorage.getItem(`${name}`));
+  box.forEach((item, index) => {
+    if (id == item.id) {
+      box.splice(index, 1);
+    }
+  });
+  localStorage.setItem(`${name}`, JSON.stringify(box));
+
+  if (localStorage.getItem(`${name}`).length === 2) {
+    localStorage.removeItem(`${name}`);
+  }
+}
+
+/* Удаление карточки с погодой */
+
+function deleteCard(array, id) {
+  array.forEach((item, index) => {
+    if (item.id == id) {
+      array.splice(index, 1);
+    }
+  });
+}
 
 /* 
+
 Задача:
-1.Удаление карточки с погодой
-2. Красивая прокрутка, переключение между карточками погоды
-3. 
+++ 1.Удаление карточки с погодой
+2. Красивая прокрутка, переключение между карточками погоды.
+
+Далее повторение promise (все темы!) для того чтобы досконально все понять и далее применять в проектах .
+
+----------------------
+Еще бы такую логику продумать, типо после перезагрузки страницы или загрузки погода обновляется.. А то сейчас так, что сохранилось то и показывает. Это как доп
+надо будет внедрить.
 */
