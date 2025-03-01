@@ -165,7 +165,6 @@ function renderInfoWeather(array, tempButton) {
       setTimeout(() => {
         SLIDER_CARD.classList.remove("slide-back");
       }, 501);
-
     } else if (
       tempButton == "left-arrow" &&
       tempIdxCityList === 0 &&
@@ -222,7 +221,6 @@ function renderInfoWeather(array, tempButton) {
       setTimeout(() => {
         SLIDER_CARD.classList.remove("slide-back");
       }, 501);
-
     } else if (
       tempButton == "right-arrow" &&
       tempIdxCityList == array.length - 1 &&
@@ -253,7 +251,7 @@ function renderInfoWeather(array, tempButton) {
       setTimeout(() => {
         SLIDER_CARD.classList.remove("slide-back");
       }, 501);
-    } else if(tempButton == "deleteBtn" && index === array.length - 1) {
+    } else if (tempButton == "deleteBtn" && index === array.length - 1) {
       tempButton = "";
       tempIdxCityList = index;
       c.textContent = item.city;
@@ -261,6 +259,13 @@ function renderInfoWeather(array, tempButton) {
       d.setAttribute("id", `${item.id}`);
     }
   });
+
+  setTimeout(() => {
+    const deleteBtn = document.querySelector(".slider-card__delete-btn");
+    if (deleteBtn && cityList[tempIdxCityList]) {
+      deleteBtn.setAttribute("id", cityList[tempIdxCityList].id);
+    }
+  }, 10);
 }
 
 /* Вовзращает название месяца место числа */
@@ -326,15 +331,18 @@ document.addEventListener("keydown", (e) => {
     tempButton = "addBtn";
     e.preventDefault();
     if (INPUT_SEARCH.value.length > 0) {
-      getWeatherCity(INPUT_SEARCH.value, API_KEY);
-      setTimeout(() => {
-        renderInfoWeather(cityList, tempButton);
-        addListLocalStorage(cityList, "cityWeather");
-        cityWeather = "";
-        temp_cCity = "";
-      }, 500);
+      if (!checkRepeatMeaning(cityList, INPUT_SEARCH.value)) {
+        getWeatherCity(INPUT_SEARCH.value, API_KEY);
+        setTimeout(() => {
+          renderInfoWeather(cityList, tempButton);
+          cityWeather = "";
+          temp_cCity = "";
+          INPUT_SEARCH.value = "";
+        }, 500);
+      } else {
+        alert("Такой город уже есть !!");
+      }
     }
-    INPUT_SEARCH.value = "";
   }
 });
 
@@ -342,18 +350,22 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener("click", (e) => {
   let target = e.target;
+  console.log();
   if (target.classList.contains("btn-search-weather")) {
     e.preventDefault();
     tempButton = "addBtn";
     if (INPUT_SEARCH.value.length > 0) {
-      getWeatherCity(INPUT_SEARCH.value, API_KEY);
-      setTimeout(() => {
-        renderInfoWeather(cityList, tempButton);
-        addListLocalStorage(cityList, "cityWeather");
-        cityWeather = "";
-        temp_cCity = "";
-        INPUT_SEARCH.value = "";
-      }, 500);
+      if (!checkRepeatMeaning(cityList, INPUT_SEARCH.value)) {
+        getWeatherCity(INPUT_SEARCH.value, API_KEY);
+        setTimeout(() => {
+          renderInfoWeather(cityList, tempButton);
+          cityWeather = "";
+          temp_cCity = "";
+          INPUT_SEARCH.value = "";
+        }, 500);
+      } else {
+        alert("Такой город уже есть !!");
+      }
     }
   } else if (target.classList.contains("left-arrow-svg")) {
     e.preventDefault();
@@ -366,9 +378,11 @@ document.addEventListener("click", (e) => {
   } else if (target.classList.contains("slider-card__delete-btn")) {
     tempButton = "deleteBtn";
     const idCard = target.getAttribute("id");
-    deleteCard(cityList, idCard);
     deleteCardStorage(idCard, "cityWeather");
-    renderInfoWeather(cityList, tempButton);
+    deleteCard(cityList, idCard);
+    setTimeout(() => {
+      renderInfoWeather(cityList, tempButton);
+    }, 10);
     if (cityList.length === 0) {
       const sliderContainer = document.querySelector(".slider-container");
       sliderContainer.innerHTML = "";
@@ -377,16 +391,30 @@ document.addEventListener("click", (e) => {
   }
 });
 
+/* Прооверка на повтор */
+
+function checkRepeatMeaning(array, value) {
+  return array.some((item) => {
+    return item.city.toLowerCase() == value.toLowerCase();
+  });
+}
+
 /* Запрос информации о погоде */
 
-async function getWeatherCity(city, apiKey) {
+async function getWeatherCity(city, apiKey, id) {
   try {
-    let response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`);
+    let response = await fetch(
+      `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
+    );
     let weatherInfo = await response.json();
-    // weatherInfo = weatherInfo;
     cityWeather = await weatherInfo.location.name;
     temp_cCity = parseInt(await weatherInfo.current.temp_c);
     addCityTemp(cityWeather, temp_cCity, cityList);
+    addListLocalStorage(cityList, "cityWeather");
+    if (id) {
+      deleteCardStorage(id, "cityWeather");
+      deleteCard(cityList, id);
+    }
     cityWeather = "";
     temp_cCity = "";
   } catch (err) {
@@ -397,8 +425,9 @@ async function getWeatherCity(city, apiKey) {
 /* Добавление в массив */
 
 function addCityTemp(city, temp, array) {
+  let random = Math.random();
   const newCity = {
-    id: Date.now(),
+    id: Date.now() + random,
     city,
     temp,
   };
@@ -414,11 +443,22 @@ function addListLocalStorage(array, name) {
 
 /* Загрузка  массив со списком из localStorage*/
 
-function loadArrayList(name) {
+function loadArrayList(name, array) {
   const boxCity = JSON.parse(localStorage.getItem(`${name}`));
   if (boxCity) {
     boxCity.forEach((item) => {
-      cityList.push(item);
+      array.push(item);
+    });
+  }
+}
+
+function refreshArrayList(name) {
+  const boxCity = JSON.parse(localStorage.getItem(`${name}`));
+  if (boxCity) {
+    boxCity.forEach((item, index) => {
+      let city = item.city;
+      let id = item.id;
+      getWeatherCity(city, API_KEY, id);
     });
   }
 }
@@ -426,8 +466,9 @@ function loadArrayList(name) {
 /* Загрузка масссив со списком из localStorage во время загрузки DOM */
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadArrayList("cityWeather");
   tempButton = "addBtn";
+  refreshArrayList("cityWeather");
+  loadArrayList("cityWeather", cityList);
   renderInfoWeather(cityList, tempButton);
 });
 
@@ -464,13 +505,15 @@ function deleteCard(array, id) {
 Задача:
 ++ 1.Удаление карточки с погодой
 ++ 2. Красивая прокрутка, переключение между карточками погоды.
-3. Исправить запрос погоды, похоже не правильно разработан промис.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+++ 3. Исправить запрос погоды, похоже не правильно разработан промис.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Далее повторение promise (все темы!) для того чтобы досконально все понять и далее применять в проектах .
 
 ----------------------
-Еще бы такую логику продумать, типо после перезагрузки страницы или загрузки, погода обновляется.. А то сейчас так, что сохранилось то и показывает. Это как доп
+++ Еще бы такую логику продумать, типо после перезагрузки страницы или загрузки, погода обновляется.. А то сейчас так, что сохранилось то и показывает. Это как доп
 надо будет внедрить.
+
+++ Так, чтобы существующий город не добавлялся в список. ТО есть не повторялся город !!
 
 Добавить список избранных городов, для удобной прокрутки 
 */
