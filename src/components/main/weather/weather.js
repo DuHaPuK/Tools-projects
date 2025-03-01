@@ -120,26 +120,27 @@ function renderInfoWeather(array, tempButton) {
 
   array.forEach((item, index) => {
     if (tempButton == "addBtn" && array.length === 1) {
+      tempButton = "";
       tempIdxCityList = index;
       c.textContent = item.city;
       t.textContent = item.temp + "°C";
       d.setAttribute("id", `${item.id}`);
-      tempButton = "";
     } else if (
       tempButton == "addBtn" &&
       array.length >= 2 &&
       index === array.length - 1
     ) {
+      tempButton = "";
       tempIdxCityList = index;
       c.textContent = item.city;
       t.textContent = item.temp + "°C";
       d.setAttribute("id", `${item.id}`);
-      tempButton = "";
     } else if (
       tempButton == "left-arrow" &&
       index === tempIdxCityList - 1 &&
       tempIdxCityList > 0
     ) {
+      tempButton = "";
       tempIdxCityList = index;
       const SLIDER_CARD = document.querySelector(".slider-card");
       SLIDER_CARD.classList.add("slide-out");
@@ -164,12 +165,13 @@ function renderInfoWeather(array, tempButton) {
       setTimeout(() => {
         SLIDER_CARD.classList.remove("slide-back");
       }, 501);
-      tempButton = "";
+
     } else if (
       tempButton == "left-arrow" &&
       tempIdxCityList === 0 &&
       index === array.length - 1
     ) {
+      tempButton = "";
       tempIdxCityList = index;
       const SLIDER_CARD = document.querySelector(".slider-card");
       SLIDER_CARD.classList.add("slide-out");
@@ -194,8 +196,8 @@ function renderInfoWeather(array, tempButton) {
       setTimeout(() => {
         SLIDER_CARD.classList.remove("slide-back");
       }, 501);
-      tempButton = "";
     } else if (tempButton == "right-arrow" && index === tempIdxCityList + 1) {
+      tempButton = "";
       tempIdxCityList = index;
       const SLIDER_CARD = document.querySelector(".slider-card");
       SLIDER_CARD.classList.add("slide-in");
@@ -220,12 +222,13 @@ function renderInfoWeather(array, tempButton) {
       setTimeout(() => {
         SLIDER_CARD.classList.remove("slide-back");
       }, 501);
-      tempButton = "";
+
     } else if (
       tempButton == "right-arrow" &&
       tempIdxCityList == array.length - 1 &&
       index === 0
     ) {
+      tempButton = "";
       tempIdxCityList = index;
       const SLIDER_CARD = document.querySelector(".slider-card");
       SLIDER_CARD.classList.add("slide-in");
@@ -250,7 +253,12 @@ function renderInfoWeather(array, tempButton) {
       setTimeout(() => {
         SLIDER_CARD.classList.remove("slide-back");
       }, 501);
+    } else if(tempButton == "deleteBtn" && index === array.length - 1) {
       tempButton = "";
+      tempIdxCityList = index;
+      c.textContent = item.city;
+      t.textContent = item.temp + "°C";
+      d.setAttribute("id", `${item.id}`);
     }
   });
 }
@@ -334,7 +342,6 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener("click", (e) => {
   let target = e.target;
-  console.log(cityList);
   if (target.classList.contains("btn-search-weather")) {
     e.preventDefault();
     tempButton = "addBtn";
@@ -357,6 +364,7 @@ document.addEventListener("click", (e) => {
     tempButton = "right-arrow";
     renderInfoWeather(cityList, tempButton);
   } else if (target.classList.contains("slider-card__delete-btn")) {
+    tempButton = "deleteBtn";
     const idCard = target.getAttribute("id");
     deleteCard(cityList, idCard);
     deleteCardStorage(idCard, "cityWeather");
@@ -373,12 +381,11 @@ document.addEventListener("click", (e) => {
 
 async function getWeatherCity(city, apiKey) {
   try {
-    let response = await fetch(
-      `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
-    );
+    let response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`);
     let weatherInfo = await response.json();
-    cityWeather = weatherInfo.location.name;
-    temp_cCity = parseInt(weatherInfo.current.temp_c);
+    // weatherInfo = weatherInfo;
+    cityWeather = await weatherInfo.location.name;
+    temp_cCity = parseInt(await weatherInfo.current.temp_c);
     addCityTemp(cityWeather, temp_cCity, cityList);
     cityWeather = "";
     temp_cCity = "";
@@ -450,17 +457,20 @@ function deleteCard(array, id) {
   });
 }
 
-/* Удаление стрелок, если нет необходимости прокрутки */
+/* ++ Удаление стрелок, если нет необходимости прокрутки */
 
 /* 
 
 Задача:
 ++ 1.Удаление карточки с погодой
 ++ 2. Красивая прокрутка, переключение между карточками погоды.
+3. Исправить запрос погоды, похоже не правильно разработан промис.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Далее повторение promise (все темы!) для того чтобы досконально все понять и далее применять в проектах .
 
 ----------------------
-Еще бы такую логику продумать, типо после перезагрузки страницы или загрузки погода обновляется.. А то сейчас так, что сохранилось то и показывает. Это как доп
+Еще бы такую логику продумать, типо после перезагрузки страницы или загрузки, погода обновляется.. А то сейчас так, что сохранилось то и показывает. Это как доп
 надо будет внедрить.
+
+Добавить список избранных городов, для удобной прокрутки 
 */
