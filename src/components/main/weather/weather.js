@@ -332,13 +332,7 @@ document.addEventListener("keydown", (e) => {
     e.preventDefault();
     if (INPUT_SEARCH.value.length > 0) {
       if (!checkRepeatMeaning(cityList, INPUT_SEARCH.value)) {
-        getWeatherCity(INPUT_SEARCH.value, API_KEY);
-        setTimeout(() => {
-          renderInfoWeather(cityList, tempButton);
-          cityWeather = "";
-          temp_cCity = "";
-          INPUT_SEARCH.value = "";
-        }, 500);
+        getWeatherAndRender(INPUT_SEARCH.value, API_KEY);
       } else {
         alert("Такой город уже есть !!");
       }
@@ -356,13 +350,7 @@ document.addEventListener("click", (e) => {
     tempButton = "addBtn";
     if (INPUT_SEARCH.value.length > 0) {
       if (!checkRepeatMeaning(cityList, INPUT_SEARCH.value)) {
-        getWeatherCity(INPUT_SEARCH.value, API_KEY);
-        setTimeout(() => {
-          renderInfoWeather(cityList, tempButton);
-          cityWeather = "";
-          temp_cCity = "";
-          INPUT_SEARCH.value = "";
-        }, 500);
+        getWeatherAndRender(INPUT_SEARCH.value, API_KEY);
       } else {
         alert("Такой город уже есть !!");
       }
@@ -404,21 +392,40 @@ function checkRepeatMeaning(array, value) {
 async function getWeatherCity(city, apiKey, id) {
   try {
     let response = await fetch(
-      `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
+      `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`
     );
     let weatherInfo = await response.json();
-    cityWeather = await weatherInfo.location.name;
-    temp_cCity = parseInt(await weatherInfo.current.temp_c);
+    cityWeather = weatherInfo.location.name;
+    temp_cCity = parseInt(weatherInfo.current.temp_c);
+
     addCityTemp(cityWeather, temp_cCity, cityList);
     addListLocalStorage(cityList, "cityWeather");
+
     if (id) {
       deleteCardStorage(id, "cityWeather");
       deleteCard(cityList, id);
     }
+
     cityWeather = "";
     temp_cCity = "";
   } catch (err) {
-    alert(err + ">>>>" + "Такого города похоже нет!");
+    alert(`Ошибка: ${err.message}. Такого города похоже нет!`);
+  }
+}
+
+/* Асинхронный запрос далее рендер */
+
+async function getWeatherAndRender(city, apiKey) {
+  try {
+    await getWeatherCity(city, apiKey);
+
+    renderInfoWeather(cityList, tempButton);
+
+    cityWeather = "";
+    temp_cCity = "";
+    INPUT_SEARCH.value = "";
+  } catch (err) {
+    console.error("Ошибка при получение данных:", err);
   }
 }
 
