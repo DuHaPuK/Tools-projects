@@ -3,8 +3,6 @@
 const TIME_BLOCK = document.querySelector(".weather-logo-block__time");
 const DATE_BLOCK = document.querySelector(".slider-card__data-text");
 const INPUT_SEARCH = document.querySelector(".input-search");
-const DELETE_BTN = document.querySelector(".slider-card__delete-btn");
-
 const API_KEY = "a53c098ae82543b4a48124519252402";
 
 let cityList = [];
@@ -109,7 +107,9 @@ function renderInfoWeather(array, tempButton) {
   const d = document.querySelector(".slider-card__delete-btn");
   const btnLeft = document.querySelector(".left-arrow");
   const btnRight = document.querySelector(".right-arrow");
+  const DELETE_BTN = document.querySelector(".slider-card__delete-btn");
 
+  hiddenElement(cityList, DELETE_BTN);
   if (array.length <= 1) {
     btnLeft.classList.add("hidden");
     btnRight.classList.add("hidden");
@@ -498,6 +498,15 @@ function deleteCard(array, id) {
   });
 }
 
+/* Удаление элемента если массив с городом пуст */
+
+function hiddenElement(array, btn) {
+  if (array.length < 1) {
+    btn.classList.add("none");
+  } else {
+    btn.classList.remove("none");
+  }
+}
 
 /* 
 

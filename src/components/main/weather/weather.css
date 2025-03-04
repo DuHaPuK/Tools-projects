@@ -166,24 +166,26 @@
 }
 
 .slider-card__delete-btn {
-  display: none;
+  opacity: 0;
+
   margin-left: auto;
 
   background-image: url(../../../../public/svg/tasknest/wastebasket.svg);
-  width: 30px;
-  height: 30px;
+  width: 27px;
+  height: 27px;
   background-repeat: no-repeat;
   background-size: cover;
 
-  transition: opacity 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .slider-card:hover .slider-card__delete-btn{
-  display: block;
+  opacity: 1;
 }
 
 .slider-card__delete-btn:hover {
-  opacity: 0.7;
+  width: 30px;
+  height: 30px;
 }
 
 .slider-card__temp-block {
@@ -231,6 +233,10 @@
   font-size: 22px;
   font-weight: 500;
   line-height: 33px;
+}
+
+.none {
+  display: none;
 }
 
 /* Анимация */
